@@ -1,0 +1,233 @@
+{
+  "generated_at": "2025-11-17T04:29:55.218248+00:00",
+  "case_count": 9,
+  "passed": 9,
+  "failed": 0,
+  "cases": [
+    {
+      "case_id": "sql_injection_positive",
+      "description": "Detect classic SQL concatenation",
+      "status": "passed",
+      "errors": [],
+      "details": {
+        "missing_issue_types": [],
+        "keyword_mismatches": [],
+        "unexpected_issue_types": []
+      },
+      "issues": [
+        {
+          "Issue Type": "SQL Injection",
+          "Description": "SQL statement concatenates unsanitized user input.",
+          "Recommended Fix": "Use parameterized queries or an ORM with bound parameters."
+        }
+      ],
+      "raw_output": [
+        {
+          "Issue Type": "SQL Injection",
+          "Description": "SQL statement concatenates unsanitized user input.",
+          "Recommended Fix": "Use parameterized queries or an ORM with bound parameters."
+        }
+      ]
+    },
+    {
+      "case_id": "xss_detection",
+      "description": "DOM based XSS should be reported",
+      "status": "passed",
+      "errors": [],
+      "details": {
+        "missing_issue_types": [],
+        "keyword_mismatches": [],
+        "unexpected_issue_types": []
+      },
+      "issues": [
+        {
+          "Issue Type": "Cross-Site Scripting",
+          "Description": "DOM sinks assign unsanitized data to innerHTML.",
+          "Recommended Fix": "Sanitize or escape input and prefer textContent assignments."
+        }
+      ],
+      "raw_output": [
+        {
+          "Issue Type": "Cross-Site Scripting",
+          "Description": "DOM sinks assign unsanitized data to innerHTML.",
+          "Recommended Fix": "Sanitize or escape input and prefer textContent assignments."
+        }
+      ]
+    },
+    {
+      "case_id": "command_injection",
+      "description": "os.system with raw input",
+      "status": "passed",
+      "errors": [],
+      "details": {
+        "missing_issue_types": [],
+        "keyword_mismatches": [],
+        "unexpected_issue_types": []
+      },
+      "issues": [
+        {
+          "Issue Type": "Command Injection",
+          "Description": "System command string incorporates user input directly.",
+          "Recommended Fix": "Whitelist commands and use shlex.split with explicit arguments."
+        }
+      ],
+      "raw_output": [
+        {
+          "Issue Type": "Command Injection",
+          "Description": "System command string incorporates user input directly.",
+          "Recommended Fix": "Whitelist commands and use shlex.split with explicit arguments."
+        }
+      ]
+    },
+    {
+      "case_id": "secrets_exposure_api_key",
+      "description": "Hard-coded credential",
+      "status": "passed",
+      "errors": [],
+      "details": {
+        "missing_issue_types": [],
+        "keyword_mismatches": [],
+        "unexpected_issue_types": []
+      },
+      "issues": [
+        {
+          "Issue Type": "Secrets Exposure",
+          "Description": "Detected hard-coded credential material.",
+          "Recommended Fix": "Move secrets into a vault or environment variable store."
+        }
+      ],
+      "raw_output": [
+        {
+          "Issue Type": "Secrets Exposure",
+          "Description": "Detected hard-coded credential material.",
+          "Recommended Fix": "Move secrets into a vault or environment variable store."
+        }
+      ]
+    },
+    {
+      "case_id": "safe_code",
+      "description": "Clean snippet should return explicit no issue",
+      "status": "passed",
+      "errors": [],
+      "details": {
+        "missing_issue_types": [],
+        "keyword_mismatches": [],
+        "unexpected_issue_types": []
+      },
+      "issues": [
+        {
+          "Issue Type": "No Issues Detected",
+          "Description": "The snippet did not trigger the sample heuristics.",
+          "Recommended Fix": "Verify with production scanners for comprehensive coverage."
+        }
+      ],
+      "raw_output": [
+        {
+          "Issue Type": "No Issues Detected",
+          "Description": "The snippet did not trigger the sample heuristics.",
+          "Recommended Fix": "Verify with production scanners for comprehensive coverage."
+        }
+      ]
+    },
+    {
+      "case_id": "missing_input",
+      "description": "Payload missing 'code' field",
+      "status": "passed",
+      "errors": [],
+      "details": {
+        "missing_issue_types": [],
+        "keyword_mismatches": [],
+        "unexpected_issue_types": []
+      },
+      "issues": [
+        {
+          "Issue Type": "Invalid Input",
+          "Description": "Input payload is missing the 'code' field.",
+          "Recommended Fix": "Provide the source snippet inside the 'code' entry."
+        }
+      ],
+      "raw_output": [
+        {
+          "Issue Type": "Invalid Input",
+          "Description": "Input payload is missing the 'code' field.",
+          "Recommended Fix": "Provide the source snippet inside the 'code' entry."
+        }
+      ]
+    },
+    {
+      "case_id": "null_input",
+      "description": "Null code should be handled",
+      "status": "passed",
+      "errors": [],
+      "details": {
+        "missing_issue_types": [],
+        "keyword_mismatches": [],
+        "unexpected_issue_types": []
+      },
+      "issues": [
+        {
+          "Issue Type": "Invalid Input",
+          "Description": "Input payload is missing the 'code' field.",
+          "Recommended Fix": "Provide the source snippet inside the 'code' entry."
+        }
+      ],
+      "raw_output": [
+        {
+          "Issue Type": "Invalid Input",
+          "Description": "Input payload is missing the 'code' field.",
+          "Recommended Fix": "Provide the source snippet inside the 'code' entry."
+        }
+      ]
+    },
+    {
+      "case_id": "empty_string_input",
+      "description": "Empty string edge case",
+      "status": "passed",
+      "errors": [],
+      "details": {
+        "missing_issue_types": [],
+        "keyword_mismatches": [],
+        "unexpected_issue_types": []
+      },
+      "issues": [
+        {
+          "Issue Type": "Invalid Input",
+          "Description": "Submitted code was empty.",
+          "Recommended Fix": "Ensure the snippet contains source instructions to scan."
+        }
+      ],
+      "raw_output": [
+        {
+          "Issue Type": "Invalid Input",
+          "Description": "Submitted code was empty.",
+          "Recommended Fix": "Ensure the snippet contains source instructions to scan."
+        }
+      ]
+    },
+    {
+      "case_id": "malformed_code",
+      "description": "Truncated or corrupt source should be flagged",
+      "status": "passed",
+      "errors": [],
+      "details": {
+        "missing_issue_types": [],
+        "keyword_mismatches": [],
+        "unexpected_issue_types": []
+      },
+      "issues": [
+        {
+          "Issue Type": "Malformed Code",
+          "Description": "The snippet appears to be corrupted or truncated.",
+          "Recommended Fix": "Re-submit syntactically valid code before scanning."
+        }
+      ],
+      "raw_output": [
+        {
+          "Issue Type": "Malformed Code",
+          "Description": "The snippet appears to be corrupted or truncated.",
+          "Recommended Fix": "Re-submit syntactically valid code before scanning."
+        }
+      ]
+    }
+  ]
+}

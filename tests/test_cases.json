@@ -1,0 +1,136 @@
+[
+  {
+    "id": "sql_injection_positive",
+    "description": "Detect classic SQL concatenation",
+    "input": {
+      "code": "def fetch_user():\n    username = input('Name: ')\n    query = f\"SELECT * FROM users WHERE name = '{username}'\"\n    cursor.execute(query)"
+    },
+    "expected": {
+      "issues": [
+        {
+          "issue_type": "SQL Injection",
+          "description_keywords": [
+            "sql",
+            "input"
+          ],
+          "recommended_fix_keywords": [
+            "parameterized",
+            "bound"
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "id": "xss_detection",
+    "description": "DOM based XSS should be reported",
+    "input": {
+      "code": "function render() {\n  const value = request.getParameter('comment');\n  document.querySelector('#output').innerHTML = value;\n}"
+    },
+    "expected": {
+      "issues": [
+        {
+          "issue_type": "Cross-Site Scripting"
+        }
+      ]
+    }
+  },
+  {
+    "id": "command_injection",
+    "description": "os.system with raw input",
+    "input": {
+      "code": "import os\nuser_input = input('Command: ')\nos.system('ping ' + user_input)"
+    },
+    "expected": {
+      "issues": [
+        {
+          "issue_type": "Command Injection"
+        }
+      ]
+    }
+  },
+  {
+    "id": "secrets_exposure_api_key",
+    "description": "Hard-coded credential",
+    "input": {
+      "code": "const API_KEY = 'sk-1234567890abcdefghijkl';\nfetch('https://example.com', { headers: { Authorization: API_KEY } });"
+    },
+    "expected": {
+      "issues": [
+        {
+          "issue_type": "Secrets Exposure"
+        }
+      ]
+    }
+  },
+  {
+    "id": "safe_code",
+    "description": "Clean snippet should return explicit no issue",
+    "input": {
+      "code": "def get_user(id):\n    return db.fetch_one('SELECT * FROM users WHERE id = %s', (id,))"
+    },
+    "expected": {
+      "issues": [
+        {
+          "issue_type": "No Issues Detected"
+        }
+      ],
+      "allow_additional_issues": false
+    }
+  },
+  {
+    "id": "missing_input",
+    "description": "Payload missing 'code' field",
+    "input": {},
+    "expected": {
+      "issues": [
+        {
+          "issue_type": "Invalid Input"
+        }
+      ],
+      "allow_additional_issues": false
+    }
+  },
+  {
+    "id": "null_input",
+    "description": "Null code should be handled",
+    "input": {
+      "code": null
+    },
+    "expected": {
+      "issues": [
+        {
+          "issue_type": "Invalid Input"
+        }
+      ]
+    }
+  },
+  {
+    "id": "empty_string_input",
+    "description": "Empty string edge case",
+    "input": {
+      "code": "   "
+    },
+    "expected": {
+      "issues": [
+        {
+          "issue_type": "Invalid Input"
+        }
+      ]
+    }
+  },
+  {
+    "id": "malformed_code",
+    "description": "Truncated or corrupt source should be flagged",
+    "input": {
+      "code": "function broken() { @@@"
+    },
+    "expected": {
+      "issues": [
+        {
+          "issue_type": "Malformed Code"
+        }
+      ]
+    }
+  }
+]
