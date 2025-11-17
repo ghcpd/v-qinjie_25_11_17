@@ -1,0 +1,2 @@
+# Only Python standard-library modules are required for the evaluation harness itself.
+# Use Python 3.9+ to ensure typing and pathlib behavior matches the tests.
