@@ -1,0 +1,167 @@
+{
+  "summary": {
+    "total": 9,
+    "passed": 9,
+    "failed": 0
+  },
+  "results": [
+    {
+      "name": "sql_injection_concat",
+      "expected": [
+        {
+          "issue_type": "SQL Injection",
+          "line": 2
+        }
+      ],
+      "actual": [
+        {
+          "issue_type": "SQL Injection",
+          "line": 2
+        }
+      ],
+      "passed": true,
+      "issues": [
+        {
+          "issue_type": "SQL Injection",
+          "description": "SQL query constructed by concatenating or interpolating user input, which may lead to SQL Injection.",
+          "file": "sql_injection_concat",
+          "line": 2,
+          "snippet": "query = \"SELECT * FROM users WHERE name = '\" + username + \"'\"",
+          "recommended_fix": "Use parameterized queries or ORM parameter binding. Avoid building SQL with string concatenation or f-strings."
+        }
+      ]
+    },
+    {
+      "name": "command_injection_shell",
+      "expected": [
+        {
+          "issue_type": "Command Injection",
+          "line": 3
+        }
+      ],
+      "actual": [
+        {
+          "issue_type": "Command Injection",
+          "line": 3
+        }
+      ],
+      "passed": true,
+      "issues": [
+        {
+          "issue_type": "Command Injection (multi-line)",
+          "description": "Potential multi-line Command Injection. Shell or OS command constructed using potentially unsafe string concatenation or interpolation.",
+          "file": "command_injection_shell",
+          "line": 3,
+          "snippet": "import os\ncmd = 'ls ' + user_input\nos.system(cmd)",
+          "recommended_fix": "Use argument lists instead of shell=True; validate or sanitize inputs. Avoid concatenating user input into shell commands."
+        }
+      ]
+    },
+    {
+      "name": "xss_innerhtml",
+      "expected": [
+        {
+          "issue_type": "Cross Site Scripting (XSS)",
+          "line": 2
+        }
+      ],
+      "actual": [
+        {
+          "issue_type": "Cross Site Scripting (XSS)",
+          "line": 2
+        }
+      ],
+      "passed": true,
+      "issues": [
+        {
+          "issue_type": "Cross Site Scripting (XSS)",
+          "description": "User input is inserted into HTML without proper escaping, which can lead to XSS.",
+          "file": "xss_innerhtml",
+          "line": 2,
+          "snippet": "document.body.innerHTML = userInput;",
+          "recommended_fix": "Escape or sanitize user-supplied data before inserting into HTML; use safe templating functions and Content Security Policy."
+        }
+      ]
+    },
+    {
+      "name": "exposed_secret",
+      "expected": [
+        {
+          "issue_type": "Exposed Secret",
+          "line": 1
+        }
+      ],
+      "actual": [
+        {
+          "issue_type": "Exposed Secret",
+          "line": 1
+        }
+      ],
+      "passed": true,
+      "issues": [
+        {
+          "issue_type": "Exposed Secret",
+          "description": "Hardcoded secret or API key found in code or configuration.",
+          "file": "exposed_secret",
+          "line": 1,
+          "snippet": "API_KEY = \"sk_test_1234567890\"",
+          "recommended_fix": "Move secrets to secure storage (environment variables, secret manager). Remove keys from version control and rotate keys if they were committed."
+        }
+      ]
+    },
+    {
+      "name": "no_issues_empty",
+      "expected": [],
+      "actual": [],
+      "passed": true,
+      "issues": []
+    },
+    {
+      "name": "null_input_none",
+      "expected": [],
+      "actual": [],
+      "passed": true,
+      "issues": []
+    },
+    {
+      "name": "malformed_code",
+      "expected": [
+        {
+          "issue_type": "SQL Injection",
+          "line": 1
+        }
+      ],
+      "actual": [
+        {
+          "issue_type": "SQL Injection",
+          "line": 1
+        }
+      ],
+      "passed": true,
+      "issues": [
+        {
+          "issue_type": "SQL Injection",
+          "description": "SQL query constructed by concatenating or interpolating user input, which may lead to SQL Injection.",
+          "file": "malformed_code",
+          "line": 1,
+          "snippet": "query = \"SELECT * FROM users WHERE name = {",
+          "recommended_fix": "Use parameterized queries or ORM parameter binding. Avoid building SQL with string concatenation or f-strings."
+        }
+      ]
+    },
+    {
+      "name": "safe_parameterized_query",
+      "expected": [],
+      "actual": [],
+      "passed": true,
+      "issues": []
+    },
+    {
+      "name": "safe_subprocess_list",
+      "expected": [],
+      "actual": [],
+      "passed": true,
+      "issues": []
+    }
+  ]
+}
