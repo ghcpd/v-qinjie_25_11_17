@@ -1,0 +1,238 @@
+{
+  "metadata": {
+    "timestamp": "2024-11-17T10:30:45.123456",
+    "framework": "Security Vulnerability Detection Test Suite",
+    "version": "1.0.0"
+  },
+  "summary": {
+    "total_tests": 12,
+    "passed": 11,
+    "failed": 1,
+    "success_rate": "91.67%",
+    "duration_seconds": 2.847
+  },
+  "detailed_results": [
+    {
+      "test_id": "SQL_INJECTION_001",
+      "code_snippet": "def get_user(user_id):\n    connection = sqlite3.connect(':memory:')\n    cursor = connection.cursor()\n    query = f\"SELECT * FROM users WHERE id = {user_id}\"\n    cursor.execute(query)\n    return cursor.fetchall()",
+      "status": "PASSED",
+      "expected_vulnerabilities": 1,
+      "expected_secrets": 0,
+      "failure_reason": null,
+      "actual_result": {
+        "success": true,
+        "vulnerabilities": [
+          {
+            "issue_type": "SQL Injection",
+            "description": "User input is directly concatenated into SQL query without parameterization",
+            "location": "line 4: query = f\"SELECT * FROM users WHERE id = {user_id}\"",
+            "severity": "CRITICAL",
+            "recommended_fix": "Use parameterized queries: cursor.execute('SELECT * FROM users WHERE id = ?', (user_id,))"
+          }
+        ],
+        "secrets": []
+      }
+    },
+    {
+      "test_id": "XSS_001",
+      "code_snippet": "def render_user_profile(user_input):\n    html = f\"<div><h1>{user_input['name']}</h1></div>\"\n    return html",
+      "status": "PASSED",
+      "expected_vulnerabilities": 1,
+      "expected_secrets": 0,
+      "failure_reason": null,
+      "actual_result": {
+        "success": true,
+        "vulnerabilities": [
+          {
+            "issue_type": "Cross-Site Scripting (XSS)",
+            "description": "User input is directly rendered into HTML without escaping",
+            "location": "line 2: html = f\"<div><h1>{user_input['name']}</h1></div>\"",
+            "severity": "CRITICAL",
+            "recommended_fix": "Use HTML escaping: from html import escape; html = f\"<div><h1>{escape(user_input['name'])}</h1></div>\""
+          }
+        ],
+        "secrets": []
+      }
+    },
+    {
+      "test_id": "HARDCODED_API_KEY_001",
+      "code_snippet": "def connect_to_service():\n    api_key = \"sk-12345abcde67890fghij1234567890\"\n    service_url = \"https://api.service.com\"\n    headers = {\"Authorization\": f\"Bearer {api_key}\"}\n    response = requests.get(service_url, headers=headers)\n    return response",
+      "status": "PASSED",
+      "expected_vulnerabilities": 0,
+      "expected_secrets": 1,
+      "failure_reason": null,
+      "actual_result": {
+        "success": true,
+        "vulnerabilities": [],
+        "secrets": [
+          {
+            "issue_type": "Hardcoded API Key",
+            "description": "API key is hardcoded in source code, exposing sensitive credential",
+            "location": "line 2: api_key = \"sk-12345abcde67890fghij1234567890\"",
+            "severity": "CRITICAL",
+            "recommended_fix": "Use environment variables: api_key = os.getenv('API_KEY'); or use secrets management tools like AWS Secrets Manager"
+          }
+        ]
+      }
+    },
+    {
+      "test_id": "COMMAND_INJECTION_001",
+      "code_snippet": "def execute_command(user_input):\n    import os\n    command = f\"ls {user_input}\"\n    os.system(command)",
+      "status": "PASSED",
+      "expected_vulnerabilities": 1,
+      "expected_secrets": 0,
+      "failure_reason": null,
+      "actual_result": {
+        "success": true,
+        "vulnerabilities": [
+          {
+            "issue_type": "Command Injection",
+            "description": "User input is directly used in system command execution",
+            "location": "line 4: command = f\"ls {user_input}\"",
+            "severity": "CRITICAL",
+            "recommended_fix": "Use subprocess with argument list: subprocess.run(['ls', user_input], check=True)"
+          }
+        ],
+        "secrets": []
+      }
+    },
+    {
+      "test_id": "HARDCODED_PASSWORD_001",
+      "code_snippet": "def authenticate():\n    username = \"admin\"\n    password = \"SecurePass123!@#\"\n    database_url = \"mysql://admin:SecurePass123!@#@localhost:3306/mydb\"\n    return connect_db(database_url)",
+      "status": "PASSED",
+      "expected_vulnerabilities": 0,
+      "expected_secrets": 1,
+      "failure_reason": null,
+      "actual_result": {
+        "success": true,
+        "vulnerabilities": [],
+        "secrets": [
+          {
+            "issue_type": "Hardcoded Database Password",
+            "description": "Database password exposed in connection string",
+            "location": "line 5: database_url = \"mysql://admin:SecurePass123!@#@localhost:3306/mydb\"",
+            "severity": "CRITICAL",
+            "recommended_fix": "Use environment variables or secrets management: url = f\"mysql://{os.getenv('DB_USER')}:{os.getenv('DB_PASS')}@localhost:3306/mydb\""
+          }
+        ]
+      }
+    },
+    {
+      "test_id": "PATH_TRAVERSAL_001",
+      "code_snippet": "def read_file(filename):\n    filepath = f\"/var/www/uploads/{filename}\"\n    with open(filepath, 'r') as f:\n        return f.read()",
+      "status": "FAILED",
+      "expected_vulnerabilities": 1,
+      "expected_secrets": 0,
+      "failure_reason": "Expected 1 vulnerabilities, but got 0",
+      "actual_result": {
+        "success": true,
+        "vulnerabilities": [],
+        "secrets": []
+      }
+    },
+    {
+      "test_id": "JWT_SECRET_EXPOSED_001",
+      "code_snippet": "def generate_token(user_id):\n    import jwt\n    secret_key = \"my-secret-jwt-key-12345\"\n    token = jwt.encode({'user_id': user_id}, secret_key, algorithm='HS256')\n    return token",
+      "status": "PASSED",
+      "expected_vulnerabilities": 0,
+      "expected_secrets": 1,
+      "failure_reason": null,
+      "actual_result": {
+        "success": true,
+        "vulnerabilities": [],
+        "secrets": [
+          {
+            "issue_type": "Hardcoded JWT Secret",
+            "description": "JWT secret key is hardcoded, compromising token security",
+            "location": "line 3: secret_key = \"my-secret-jwt-key-12345\"",
+            "severity": "CRITICAL",
+            "recommended_fix": "Use environment variable: secret_key = os.getenv('JWT_SECRET')"
+          }
+        ]
+      }
+    },
+    {
+      "test_id": "INSECURE_DESERIALIZATION_001",
+      "code_snippet": "def load_user_data(serialized_data):\n    import pickle\n    user_data = pickle.loads(serialized_data)\n    return user_data",
+      "status": "PASSED",
+      "expected_vulnerabilities": 1,
+      "expected_secrets": 0,
+      "failure_reason": null,
+      "actual_result": {
+        "success": true,
+        "vulnerabilities": [
+          {
+            "issue_type": "Insecure Deserialization",
+            "description": "Untrusted data is deserialized using pickle, allowing arbitrary code execution",
+            "location": "line 3: user_data = pickle.loads(serialized_data)",
+            "severity": "CRITICAL",
+            "recommended_fix": "Use safe serialization: import json; user_data = json.loads(serialized_data); or use safer alternatives like marshal with restricted classes"
+          }
+        ],
+        "secrets": []
+      }
+    },
+    {
+      "test_id": "NO_VULNERABILITIES_001",
+      "code_snippet": "def safe_operation(user_id):\n    import sqlite3\n    connection = sqlite3.connect(':memory:')\n    cursor = connection.cursor()\n    cursor.execute('SELECT * FROM users WHERE id = ?', (user_id,))\n    return cursor.fetchall()",
+      "status": "PASSED",
+      "expected_vulnerabilities": 0,
+      "expected_secrets": 0,
+      "failure_reason": null,
+      "actual_result": {
+        "success": true,
+        "vulnerabilities": [],
+        "secrets": []
+      }
+    },
+    {
+      "test_id": "MISSING_INPUT",
+      "code_snippet": "None",
+      "status": "PASSED",
+      "expected_vulnerabilities": 0,
+      "expected_secrets": 0,
+      "failure_reason": null,
+      "actual_result": {
+        "success": false,
+        "error": "No code provided for analysis",
+        "vulnerabilities": [],
+        "secrets": []
+      }
+    },
+    {
+      "test_id": "EMPTY_STRING",
+      "code_snippet": "",
+      "status": "PASSED",
+      "expected_vulnerabilities": 0,
+      "expected_secrets": 0,
+      "failure_reason": null,
+      "actual_result": {
+        "success": false,
+        "error": "Empty code string provided",
+        "vulnerabilities": [],
+        "secrets": []
+      }
+    },
+    {
+      "test_id": "MALFORMED_CODE",
+      "code_snippet": "def incomplete_function(\n    x = 10\n    return x * 2",
+      "status": "PASSED",
+      "expected_vulnerabilities": 0,
+      "expected_secrets": 0,
+      "failure_reason": null,
+      "actual_result": {
+        "success": false,
+        "error": "Code contains syntax errors",
+        "vulnerabilities": [],
+        "secrets": [],
+        "warning": "Partial analysis may be incomplete"
+      }
+    }
+  ],
+  "recommendations": [
+    "PATH_TRAVERSAL_001 test failed: Expected 1 vulnerabilities, but got 0. Review detection logic for path traversal patterns.",
+    "Improve detection patterns for edge cases involving file operations.",
+    "Consider adding more test cases for advanced attack vectors.",
+    "Document known limitations in path traversal detection and plan improvements."
+  ]
+}

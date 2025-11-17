@@ -1,0 +1,16 @@
+# Security Test Framework - Docker Compose Configuration
+version: '3.8'
+
+services:
+  security-test:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: security-vulnerability-tests
+    volumes:
+      - ./reports:/app/reports
+      - ./test_data:/app/test_data
+    environment:
+      - PYTHONUNBUFFERED=1
+    command: python3 test_runner.py
+    restart: "no"
