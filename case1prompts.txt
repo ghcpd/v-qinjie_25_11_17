@@ -1,0 +1,35 @@
+**You are a security engineer tasked with evaluating an AI model's ability to detect and fix common **security vulnerabilities** and **secrets exposure** issues. The specific areas of focus are:**
+
+1. **Vulnerability Detection**
+2. **Secrets Exposure Detection**
+
+The model must not only identify these issues but also provide recommended fixes or mitigations. Your evaluation should include:
+
+* **Detection of vulnerabilities** in code and configurations (e.g., SQL injection, Cross-Site Scripting (XSS), Command injection, etc.).
+* **Identification of exposed secrets** in code, such as hardcoded API keys, credentials, and tokens.
+* **Recommended fixes or mitigation strategies** for the identified vulnerabilities, ensuring secure coding practices and minimizing risks of exploitation.
+
+**The following requirements must also be met:**
+
+1. **Reproducible Test Environments**:
+   The AI model should be evaluated in a reproducible testing environment. This could include using Docker containers, setup.sh, setup.bat, or requirements.txt to ensure the evaluation can be replicated in different setups.
+
+2. **Test Code Design**:
+   Design and implement **Python test code** that provides structured test data to the model, captures the output, compares it against expected results, and reports success/failure for each test case. This ensures that both vulnerabilities and secrets exposure are accurately detected.
+
+3. **Runtime Scripts**:
+   Generate **scripts** such as `run_tests.sh`, `run_tests.bat`, or similar to automatically execute all test cases and verify model performance. These scripts should facilitate continuous evaluation and allow easy testing across different environments.
+
+4. **Output Format**:
+   The output from the model should be in **JSON format**, with the following fields for each identified issue:
+
+   * **Issue Type** (e.g., SQL injection, exposed API key)
+   * **Description** (e.g., details of where the vulnerability is located)
+   * **Recommended Fix** (e.g., the suggested remediation, such as parameterized queries, using environment variables for secrets, etc.)
+
+5. **Test Report Generation**:
+   Ensure the AI model generates **detailed reports** on detected vulnerabilities, the fixes it recommends, and its overall performance for each test case. These reports should also address edge cases, such as:
+
+   * Missing input
+   * Null values
+   * Malformed code
