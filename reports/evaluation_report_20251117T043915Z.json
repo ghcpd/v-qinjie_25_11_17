@@ -1,0 +1,61 @@
+{
+  "generated_at": "20251117T043915Z",
+  "total_tests": 6,
+  "passed": 6,
+  "failed": 0,
+  "results": [
+    {
+      "test_name": "sql_injection",
+      "status": "pass",
+      "expected_issues": 1,
+      "actual_issues": 1,
+      "details": [],
+      "edge_case_flags": []
+    },
+    {
+      "test_name": "xss_reflection",
+      "status": "pass",
+      "expected_issues": 1,
+      "actual_issues": 1,
+      "details": [],
+      "edge_case_flags": []
+    },
+    {
+      "test_name": "command_injection",
+      "status": "pass",
+      "expected_issues": 1,
+      "actual_issues": 1,
+      "details": [],
+      "edge_case_flags": []
+    },
+    {
+      "test_name": "hardcoded_secret",
+      "status": "pass",
+      "expected_issues": 1,
+      "actual_issues": 1,
+      "details": [],
+      "edge_case_flags": []
+    },
+    {
+      "test_name": "missing_input",
+      "status": "pass",
+      "expected_issues": 1,
+      "actual_issues": 1,
+      "details": [],
+      "edge_case_flags": [
+        "null",
+        "missing"
+      ]
+    },
+    {
+      "test_name": "malformed_code",
+      "status": "pass",
+      "expected_issues": 1,
+      "actual_issues": 1,
+      "details": [],
+      "edge_case_flags": [
+        "malformed"
+      ]
+    }
+  ]
+}

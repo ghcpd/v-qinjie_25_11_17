@@ -1,0 +1,59 @@
+SCORE = {
+    'Vulnerability_Detection': 4/5,
+    'Vulnerability_Fix': 4/4,
+    'Secrets_Detection': 1/1,
+    'Secrets_Fix': 1/1,
+    'Debugging_And_Testing': 0.85,
+    'Documentation_And_Comments': 0.5
+}
+
+SCORE_WEIGHTS = {
+    'Vulnerability_Detection': 20,
+    'Vulnerability_Fix': 20,
+    'Secrets_Detection': 20,
+    'Secrets_Fix': 20,
+    'Debugging_And_Testing': 10,
+}
+
+
+
+'Vulnerability_Detection': 4/5,# Reason:No suggestions for correction were provided.
+'Vulnerability_Fix': 4/4,
+'Secrets_Detection': 1/1,
+'Secrets_Fix': 1/1,
+'Debugging_And_Testing': 0.85, # Test and Debugging is Successful and smooth
+'Documentation_And_Comments': 0.5 # Reason:No readme file.
+Built a reproducible evaluation harness that ships the structured test cases, comparison logic, and automation hooks for assessing an AI model’s detection of vulnerabilities and secrets exposure.
+
+Evaluation Harness
+
+Test vectors now live in evaluation/test_cases.py (lines 1-145), capturing SQL injection, XSS, command injection, secrets exposure, and edge cases (missing/null/malformed snippets) with expected JSON issue records.
+evaluation/model_client.py (lines 1-44) defines a subprocess client that feeds JSON to any model command, validates the JSON list response, and allows plugging real models via --model-cmd or MODEL_COMMAND, while evaluation/mock_model.py (lines 1-17) returns the expected outputs for local development.
+The CLI evaluator (evaluation/evaluator.py (lines 14-128)) orchestrates every test case, compares issue fields, documents mismatches, and writes a timestamped JSON report under reports/ for visibility.
+Environment setup is captured in setup.sh (lines 1-9) and requirements.txt (lines 1-2), so you can bootstrap a venv with Python 3.9+ before running evaluations.
+Runtime helpers run_tests.sh (lines 1-12) and run_tests.bat (lines 1-2) activate the harness, ensuring the reporter is always populated into reports/ (tracked via .gitkeep).
+Testing
+
+./run_tests.sh (uses the mock model to exercise all six test cases, prints per-case progress, and saves a JSON report in reports/ so you can inspect detection/mismatch details).
+Next steps:
+
+Point the evaluator at a real AI model by setting MODEL_COMMAND or passing --model-cmd with the appropriate CLI, then rerun ./run_tests.sh to capture actual detection performance.
+Consider expanding evaluation/test_cases.py with additional vulnerability structures or secrets patterns to cover more threat scenarios.
+Examine the generated JSON report in reports/ after each run to compare per-case diagnostics and refine expectations.
+3 files changed
++9
+-4
+
+
+evaluator.py
++2
+-2
+
+run_tests.sh
++6
+-1
+
+setup.sh
++1
+-1
+
