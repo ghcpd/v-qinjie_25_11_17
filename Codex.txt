@@ -1,0 +1,45 @@
+SCORE = {
+    'Vulnerability_Detection': 8/8,
+    'Vulnerability_Fix': 8/8,
+    'Secrets_Detection': 1/1,
+    'Secrets_Fix': 1/1,
+    'Debugging_And_Testing': 0.85,
+    'Documentation_And_Comments': 0.75
+}
+
+SCORE_WEIGHTS = {
+    'Vulnerability_Detection': 20,
+    'Vulnerability_Fix': 20,
+    'Secrets_Detection': 20,
+    'Secrets_Fix': 20,
+    'Debugging_And_Testing': 10,
+}
+Security Harness
+
+Built a configurable evaluation runner that ingests case fixtures, validates model output structure (Issue Type/Description/Recommended Fix), compares expectations, and emits machine-readable reports plus CLI summaries (src/evaluator.py (lines 1-205)).
+Added a pluggable adapter and deterministic sample model so the suite runs out-of-the-box while still allowing MODEL_CLASS overrides for real AI clients (src/model_adapter.py (lines 1-49), src/sample_model.py (lines 1-131)).
+Authored comprehensive fixtures covering SQL injection, XSS, command injection, secrets exposure, safe-code regression, and edge cases for missing/null/malformed input so both vulnerability and secret detection are exercised (tests/test_cases.json (lines 1-136)).
+Documented workflow, JSON output contract, and integration instructions while supplying reproducible setup + runtime scripts for Linux/Windows environments (README.md:1-88, setup.sh:1-8, setup.bat:1-6, run_tests.sh:1-6, run_tests.bat:1-3).
+Test executions drop detailed results in reports/security_evaluation_report.json for CI-friendly auditing.
+Tests
+
+python3 -m src.evaluator (9/9 cases passed; report saved to reports/security_evaluation_report.json)
+Next steps
+
+Point MODEL_CLASS at your actual AI client to evaluate real outputs.
+Integrate ./run_tests.sh into CI so regressions in vulnerability/secret detection are caught automatically.
+2 files changed
++7
+-5
+
+Undo
+
+View all changes
+evaluator.py
++4
+-2
+
+sample_model.py
++3
+-3
+
