@@ -1,0 +1,68 @@
+# Security Test Framework Configuration
+# Version: 1.0.0
+
+# Logging configuration
+logging:
+  level: INFO
+  format: "[%(levelname)s] %(message)s"
+
+# Test execution settings
+testing:
+  # Timeout for each test case (seconds)
+  timeout: 30
+  # Continue on test failure
+  continue_on_failure: true
+  # Verbosity level (0=quiet, 1=normal, 2=verbose)
+  verbosity: 1
+
+# Security analysis settings
+security:
+  # Severity levels to report
+  severity_levels:
+    - CRITICAL
+    - HIGH
+    - MEDIUM
+    - LOW
+  
+  # Vulnerability categories
+  vulnerability_categories:
+    - sql_injection
+    - xss
+    - command_injection
+    - path_traversal
+    - insecure_deserialization
+    - weak_cryptography
+    - authentication_issues
+    - authorization_issues
+
+  # Secret patterns to detect
+  secret_patterns:
+    - api_key
+    - password
+    - jwt_secret
+    - database_url
+    - aws_credentials
+    - github_token
+    - private_key
+
+# Report generation
+reporting:
+  # Output format (json, html, csv)
+  format: json
+  # Include source code snippets in report
+  include_snippets: true
+  # Snippet length (characters)
+  snippet_length: 200
+  # Generate timestamp
+  include_timestamp: true
+
+# Environment settings
+environment:
+  # Python version requirement
+  python_version_min: "3.8"
+  # Working directory for tests
+  work_dir: "."
+  # Reports output directory
+  reports_dir: "./reports"
+  # Test data directory
+  test_data_dir: "./test_data"
