@@ -1,0 +1,85 @@
+{
+  "tests_run": 4,
+  "tests_passed": 4,
+  "details": [
+    {
+      "sample": "sample_code/sql_injection.py",
+      "expected": [
+        "SQL injection"
+      ],
+      "found": [
+        "SQL injection"
+      ],
+      "success": true,
+      "issues": [
+        {
+          "Issue Type": "SQL injection",
+          "Description": "Potential SQL injection via unparameterized SQL in: query = \"SELECT * FROM users WHERE username = '\" + username + \"'\"",
+          "Recommended Fix": "Use parameterized queries (e.g., db.execute(sql, params)) or an ORM that safely binds parameters."
+        },
+        {
+          "Issue Type": "SQL injection",
+          "Description": "Potential SQL injection via unparameterized SQL in: SELECT * FROM users WHERE username = '\" + username + \"'\"",
+          "Recommended Fix": "Use parameterized queries (e.g., db.execute(sql, params)) or an ORM that safely binds parameters."
+        }
+      ]
+    },
+    {
+      "sample": "sample_code/xss_example.html",
+      "expected": [
+        "Cross-Site Scripting (XSS)"
+      ],
+      "found": [
+        "Cross-Site Scripting (XSS)"
+      ],
+      "success": true,
+      "issues": [
+        {
+          "Issue Type": "Cross-Site Scripting (XSS)",
+          "Description": "Potential DOM XSS via assignment to innerHTML: innerHTML =",
+          "Recommended Fix": "Avoid using innerHTML for untrusted data. Use textContent or proper encoding/sanitization."
+        }
+      ]
+    },
+    {
+      "sample": "sample_code/command_injection.py",
+      "expected": [
+        "Command injection"
+      ],
+      "found": [
+        "Command injection"
+      ],
+      "success": true,
+      "issues": [
+        {
+          "Issue Type": "Command injection",
+          "Description": "Use of system calls with potentially concatenated args: os.system(",
+          "Recommended Fix": "Use subprocess.run with a list and validate input; avoid shell=True and concatenate only sanitized values."
+        }
+      ]
+    },
+    {
+      "sample": "sample_code/secrets.py",
+      "expected": [
+        "Exposed secret"
+      ],
+      "found": [
+        "Exposed secret"
+      ],
+      "success": true,
+      "issues": [
+        {
+          "Issue Type": "Exposed secret",
+          "Description": "Hard-coded secret or token detected: AKIAEXAMPLEEXAMPLE12",
+          "Recommended Fix": "Move secrets to environment variables or a secret manager; rotate and remove historical exposure."
+        },
+        {
+          "Issue Type": "Exposed secret",
+          "Description": "Hard-coded secret or token detected: API_KEY = \"AKIAEXAMPLEEXAMPLE123456\"",
+          "Recommended Fix": "Move secrets to environment variables or a secret manager; rotate and remove historical exposure."
+        }
+      ]
+    }
+  ],
+  "summary": "4 / 4 passed"
+}

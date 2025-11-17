@@ -1,0 +1,2 @@
+# Minimal packages for running tests and static analysis
+jsonschema
